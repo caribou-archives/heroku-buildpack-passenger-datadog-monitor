@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+BUILD_DIR=$1
+BUILDPACK_DIR=$(cd "$(dirname "$0")"; cd ..; pwd)
+
+echo "-----> Build Directory $BUILD_DIR"
+echo "-----> Build Pack Directory $BUILDPACK_DIR"
+
+BINARY_URL="https://storage.googleapis.com/motorefi-buildpack-assets/passenger-datadog-monitor"
+
+echo "-----> Downloading monitor binary from $BINARY_URL"
+wget $BINARY_URL -P $BUILD_DIR/bin/
+
+echo "-----> Putting service script in /etc/init.d"
+cp "$BUILDPACK_DIR/assets/passenger-datadog-monitor" "/etc/init.d/"
+
+echo "-----> Creating profile directory at $BUILD_DIR/.profile.d"
+mkdir -p "$BUILD_DIR/.profile.d/"
+
+echo "-----> Putting start script in $BUILD_DIR/.profile.d"
+cp "$BUILDPACK_DIR/assets/start-passenger-datadog-monitor.sh" "$BUILD_DIR/.profile.d/"
