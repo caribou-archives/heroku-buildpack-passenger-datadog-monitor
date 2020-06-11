@@ -12,9 +12,6 @@ BINARY_URL="https://storage.googleapis.com/motorefi-buildpack-assets/passenger-d
 echo "-----> Downloading monitor binary from $BINARY_URL"
 wget $BINARY_URL -P $BUILD_DIR/bin/
 
-echo "-----> Putting service script in /etc/init.d"
-cp "$BUILDPACK_DIR/assets/passenger-datadog-monitor" "/etc/init.d/"
-
 echo "-----> Creating profile directory at $BUILD_DIR/.profile.d"
 mkdir -p "$BUILD_DIR/.profile.d/"
 
